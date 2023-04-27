@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:29:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/27 02:11:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/04/27 03:38:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,7 +68,7 @@ int	ft_atoi(const char *nptr)
 	return (neg * number);
 }
 
-bool	parse(int ac, char **av, t_param *param)
+bool	parse(int ac, char **av, t_data *data)
 {
 	int i;
 	
@@ -82,11 +82,11 @@ bool	parse(int ac, char **av, t_param *param)
 			return false;
 		i++;
 	}
-	param->number_of_philosophers = ft_atoi(av[1]);
-	param->time_to_die = ft_atoi(av[2]);
-	param->time_to_eat = ft_atoi(av[3]);
-	param->time_to_sleep = ft_atoi(av[4]);
+	data->number_of_philosophers = ft_atoi(av[1]);
+	data->time_to_die = ft_atoi(av[2]);
+	data->time_to_eat = ft_atoi(av[3]);
+	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
-		param->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
+		data->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
 	return true;
 }

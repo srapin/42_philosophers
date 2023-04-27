@@ -3,13 +3,15 @@ NAME_UNFLAG = philo
 NAME_BONUS = philo_bonus
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -pthread
 
 FILES = \
-		philo \
+		error_handler \
 		main \
 		parse \
-		error_handler \
+		philo \
+		print \
+		utils \
 
 
 
