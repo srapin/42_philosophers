@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:29:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/27 03:38:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/04/28 00:09:12 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,5 +88,7 @@ bool	parse(int ac, char **av, t_data *data)
 	data->time_to_sleep = ft_atoi(av[4]);
 	if (ac == 6)
 		data->number_of_times_each_philosopher_must_eat = ft_atoi(av[5]);
+	else
+		data->number_of_times_each_philosopher_must_eat = -1;
 	return true;
 }

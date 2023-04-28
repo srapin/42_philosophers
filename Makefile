@@ -6,12 +6,14 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread
 
 FILES = \
+		change_state \
 		error_handler \
+		id_getter \
+		init \
 		main \
 		parse \
 		philo \
 		print \
-		utils \
 
 
 

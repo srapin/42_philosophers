@@ -6,36 +6,35 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/27 03:39:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/04/28 02:23:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
 
-void change_state(t_philo *p, t_state new_state)
-{
-	//if (new_state == p->state)
-		
-}
 
-bool check_if_alive()
+bool check_death(t_philo *philo)
 {
-	return false;
-}
-
-int time_for_task(t_philo *p)
-{
+	struct timeval time;
 	
+	gettimeofday(&time, NULL);
+	if (philo->data->time_to_die < time.tv_usec - philo->last_meal.tv_usec)
+		return false;
+	//todo
+	philo->state = died;
+	print_state(philo);
+	return true; //exit?????
 }
 
-void print_state(t_philo *p, bool took_a_fork)
+
+
+void print_state(t_philo *p)
 {
 	char *mess;
+	struct timeval time;
 	
-
-	
-	if (took_a_fork)
+	if (p->just_took_a_fork) //check 2 fourchette
 		mess = "has taken a fork";
 	else if (p->state == died)
 		mess = "died";
@@ -45,5 +44,9 @@ void print_state(t_philo *p, bool took_a_fork)
 		mess = "is sleeping";
 	else if (p->state == thinking)
 		mess = "is thinking";
-	printf("%d %d %s", gettimeofday(), p->id, mess);
+	// else if (p->state == thinking_whit_a_fork)
+	// 	mess = "has taken a fork";
+	p->just_took_a_fork = false;
+	gettimeofday(&time ,NULL);
+	printf("%ld %d %s", time.tv_usec ,get_philo_id(p), mess);
 }

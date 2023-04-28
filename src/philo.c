@@ -6,13 +6,18 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/27 02:33:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/04/28 02:38:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void * philo(void *args)
+
+
+
+
+void * philosophe(void *args)
 {
-	printf(args);
+	//printf(args);
+	return(0);
 }
