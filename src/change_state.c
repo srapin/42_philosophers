@@ -24,8 +24,6 @@ int time_for_task(t_philo *philo)
 void eat_to_sleep(t_philo *philo)
 {
 	//unlock
-	philo->forks.prev = false;
-	philo->forks.next = false;
 	gettimeofday(&(philo->last_meal),NULL);
 	philo->state = sleeping;
 }
@@ -51,8 +49,8 @@ void think_to_eat(t_philo *philo)
 
 void change_state(t_philo *philo)
 {
-	if (check_death(philo))
-		return ;//?
+	// if (check_death(philo))
+	// 	return ;//?
 	if (philo->state == eating)
 		eat_to_sleep(philo);
 	else if (philo->state == sleeping)
@@ -61,5 +59,5 @@ void change_state(t_philo *philo)
 		think_to_eat(philo);
 	// 	get_a_fork(philo); //?
 	// else if (philo->state == thinking_whit_a_fork)
-	print_state(philo);
+	//print_state(philo);
 }

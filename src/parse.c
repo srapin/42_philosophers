@@ -41,11 +41,11 @@ int	is_whitespace(char c)
 		|| c == '\r');
 }
 
-int	ft_atoi(const char *nptr)
+long int	ft_atoi(const char *nptr)
 {
 	int	i;
 	int	neg;
-	int	number;
+	long int	number;
 
 	i = 0;
 	neg = 1;

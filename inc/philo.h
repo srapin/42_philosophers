@@ -18,12 +18,14 @@
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/time.h>
+# include <unistd.h>
 
 typedef enum e_error
 {
 	none,
 	parse_error,
-	state_equale_new_state
+	state_equale_new_state,
+	eat_whit_not_enough_forks
 }					t_error;
 
 typedef enum e_state
@@ -51,14 +53,14 @@ typedef struct s_data
 	suseconds_t		time_to_sleep;
 	pthread_mutex_t can_write;
 	pthread_mutex_t *forks;
-	struct s_philo	*philosophers;
+	struct s_philo	**philosophers;
 }					t_data;
 
 typedef struct s_philo
 {
 	int				i;
 	int				has_already_eaten;
-	struct timeval	last_meal;
+	struct timeval	last_meal; //probleme de calcule?
 	bool			just_took_a_fork;
 	t_fork			forks;
 	t_state			state;
@@ -92,6 +94,6 @@ void				print_state(t_philo *p);
 bool				check_death(t_philo *philo);
 
 //error_handler
-int					error_occured(t_error e);
+int					error_occured(t_error e, t_philo *p);
 
 #endif

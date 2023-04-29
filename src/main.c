@@ -20,12 +20,12 @@ int main(int ac, char **av)
 	void *res;
 
 	if (!parse(ac, av, &data))
-		return error_occured(parse_error);
+		return error_occured(parse_error, NULL);
 	init_data(&data);
 	
 	printf("before\n");
 	//pthread_create(&thread, NULL, &philo, test);
 	printf("between\n");
-	pthread_join(thread, &res);
+	//pthread_join(thread, &res);
 	printf("after\n");
 }

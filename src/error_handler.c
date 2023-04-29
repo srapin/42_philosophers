@@ -12,14 +12,25 @@
 
 #include "../inc/philo.h"
 
-int		error_occured(t_error e)
+int		error_occured(t_error e, t_philo *p)
 {
 	char *mess;
 	
 	if (e == none)
-		mess = "error occured but wich one?";
+		mess = "error occured but wich one";
 	if (e == parse_error)
 		mess = "parse error";
-	printf("%s", mess);
+	if (e == eat_whit_not_enough_forks)
+		mess = "philo try to eat but has not enough forks";
+	if (p)
+	{
+		pthread_mutex_lock(&(p->data->can_write));
+		printf("%s by %d \n", mess, get_philo_id(p));
+		pthread_mutex_unlock(&(p->data->can_write));
+	}
+	else
+	{
+		printf("%s\n", mess);
+	}
 	return e;
 }

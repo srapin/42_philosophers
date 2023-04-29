@@ -48,5 +48,7 @@ void print_state(t_philo *p)
 	// 	mess = "has taken a fork";
 	p->just_took_a_fork = false;
 	gettimeofday(&time ,NULL);
-	printf("%ld %d %s", time.tv_usec ,get_philo_id(p), mess);
+	pthread_mutex_lock(&(p->data->can_write));
+	printf("%ld %d %s\n", time.tv_usec ,get_philo_id(p), mess);
+	pthread_mutex_unlock(&(p->data->can_write));
 }

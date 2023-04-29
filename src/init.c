@@ -42,5 +42,23 @@ void init_data(t_data *data)
 		i++;
 	}
 	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		data->philosophers[i] = init_philo(data, i);	
+		i++;
+	}
+	
+	i = 0;
+	while (i < data->number_of_philosophers)
+	{
+		pthread_join(data->philosophers[i]->thread, NULL);
+		//²data->philosophers[i] = init_philo(data, i);	
+		i++;
+	}
+	
+}
+
+void destroy_data()
+{
 
 }
