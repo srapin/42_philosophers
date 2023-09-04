@@ -51,6 +51,7 @@ typedef struct s_data
 	suseconds_t		time_to_die;
 	suseconds_t		time_to_eat;
 	suseconds_t		time_to_sleep;
+	suseconds_t		start;
 	pthread_mutex_t can_write;
 	pthread_mutex_t *forks;
 	struct s_philo	**philosophers;
@@ -58,14 +59,14 @@ typedef struct s_data
 
 typedef struct s_philo
 {
-	int				i;
+	int				id;
+	pthread_t		thread;
+	t_state			state;
 	int				has_already_eaten;
 	struct timeval	last_meal; //probleme de calcule?
 	bool			just_took_a_fork;
 	t_fork			forks;
-	t_state			state;
 	t_data			*data;
-	pthread_t		thread;
 }					t_philo;
 
 //change_state
@@ -91,7 +92,7 @@ void				*philosophe(void *args);
 
 //print
 void				print_state(t_philo *p);
-bool				check_death(t_philo *philo);
+bool				is_alive(t_philo *philo);
 
 //error_handler
 int					error_occured(t_error e, t_philo *p);

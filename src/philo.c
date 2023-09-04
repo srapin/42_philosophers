@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/28 02:38:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:13:28 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void philo_eat(t_philo * philo)
 {
-	if (!philo->forks.prev || !philo->forks.next);
+	if (!philo->forks.prev || !philo->forks.next)
 	{
 		error_occured(eat_whit_not_enough_forks, philo);
 		//return;
@@ -44,7 +44,8 @@ void philo_think(t_philo * philo)
 	philo->just_took_a_fork = true;
 	philo->forks.next = true;
 	print_state(philo);
-	if (!philo->forks.prev || !philo->forks.next);
+	philo->just_took_a_fork = false;
+	if (!philo->forks.prev || !philo->forks.next)
 	{
 		error_occured(eat_whit_not_enough_forks, philo);
 		return;
@@ -70,9 +71,9 @@ void act(t_philo *philo)
 void * philosophe(void *args)
 {
 	t_philo *p = args;
-	//printf("heyyyy %d\n", p->i);
-	print_state(p);
-	while(!check_death(p))
+	// printf("heyyyy i m philo %d\n", p->i);
+	// print_state(p);
+	while(is_alive(p))
 	{
 		act(p);
 		change_state(p);

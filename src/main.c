@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:29:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/28 02:53:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:00:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,9 +14,10 @@
 
 int main(int ac, char **av)
 {
+	printf("before\n");
 	t_data data;
 	pthread_t thread;
-	char *test = "test";
+	// char *test = "test";
 	void *res;
 
 	if (!parse(ac, av, &data))
@@ -24,7 +25,7 @@ int main(int ac, char **av)
 	init_data(&data);
 	
 	printf("before\n");
-	//pthread_create(&thread, NULL, &philo, test);
+	// pthread_create(&thread, NULL, &philo, test);
 	printf("between\n");
 	//pthread_join(thread, &res);
 	printf("after\n");

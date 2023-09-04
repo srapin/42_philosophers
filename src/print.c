@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/28 02:23:03 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:07:58 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 
 
-bool check_death(t_philo *philo)
+bool is_alive(t_philo *philo)
 {
 	struct timeval time;
 	
 	gettimeofday(&time, NULL);
 	if (philo->data->time_to_die < time.tv_usec - philo->last_meal.tv_usec)
-		return false;
+		return true;
 	//todo
 	philo->state = died;
 	print_state(philo);
-	return true; //exit?????
+	return false; //exit?????
 }
 
 

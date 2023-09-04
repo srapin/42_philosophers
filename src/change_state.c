@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 00:42:37 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/28 02:20:46 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/04 18:11:51 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void sleep_to_think(t_philo *philo)
 
 void think_to_eat(t_philo *philo)
 {
-	if (check_death(philo))
+	if (!is_alive(philo))
 		return;
 	philo->state = eating;
 	
