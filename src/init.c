@@ -49,8 +49,10 @@ void launch_philos(t_data *data)
 
 	// data->philosophers = malloc(data->number_of_philosophers * sizeof(void *));
 	i = 0;
-	while (i <= data->number_of_philosophers )
+	// philosophe_routine(data->philosophers[i]);
+	while (i < data->number_of_philosophers)
 	{
+		// printf("\nlol %d \n", i);
 		current_philo = data->philosophers[i];
 		pthread_create(&(current_philo->thread_id), NULL, &philosophe_routine, current_philo);
 		i++;
@@ -105,11 +107,10 @@ void init_philos_mutexes(t_data *data)
 {
 	int i = 0;
 
-	while (i <= data->number_of_philosophers)
+	while (i < data->number_of_philosophers)
 	{
 		init_one_philo_mutexes(data->philosophers[i]);
 		i++;
-
 	}
 
 }
@@ -117,6 +118,7 @@ void init_philos_mutexes(t_data *data)
 void init_mutexes(t_data *data)
 {
 	init_forks(data);
+	init_philos_mutexes(data);
 	pthread_mutex_init(&(data->can_write), NULL);
 }
 
@@ -146,8 +148,8 @@ void init_philos(t_data *data)
 	{
 
 		data->philosophers[i] = create_philo(data, i);
-	printf("philo %d creat", i);
-	i++;
+		// printf("\n philo %d creat\n", i);
+		i++;
 	}
 }
 

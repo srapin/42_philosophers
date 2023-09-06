@@ -15,15 +15,15 @@
 void *philosophe_routine(void *args)
 {
 	t_philo *p = args;
-	printf("heyyyy i m philo %d\n", p->id);
+		// print_state(p);
+	while(is_alive(p))
+	{
+		// print_state(p);
+		act(p);
+		change_state(p);
+	}
 	// print_state(p);
-	// while(is_alive(p))
-	// {
-	// 	act(p);
-	// 	change_state(p);
-	// }
-	// //print_state(p);
-	// return(0);
+	return NULL;
 }
 
 
@@ -40,4 +40,5 @@ void *supervisor_routine(void *arg)
 		
 		}
 	}
+	return NULL;
 }
