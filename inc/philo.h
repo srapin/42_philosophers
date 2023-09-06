@@ -60,18 +60,23 @@ typedef struct s_data
 typedef struct s_philo
 {
 	int				id;
-	pthread_t		thread;
-	t_state			state;
+	t_data			*data;
+	pthread_t		thread_id;
+	t_state		state;
 	int				has_already_eaten;
 	struct timeval	last_meal; //probleme de calcule?
 	bool			just_took_a_fork;
 	t_fork			forks;
-	t_data			*data;
+	pthread_mutex_t state_access;
+	pthread_mutex_t last_meal_access;
 }					t_philo;
 
 //change_state
 int					time_for_task(t_philo *p);
 void				change_state(t_philo *philo);
+
+//error_handler
+int		error_occured(t_error e, t_philo *p);
 
 //id_getter
 int					get_next_neighbours_id(t_philo *philo);
@@ -81,14 +86,18 @@ int					get_prev_fork_id(t_philo *philo);
 int					get_philo_id(t_philo *philo);
 
 //init
-void init_data(t_data *data);
+void init_data(int ac, char **av, t_data *data);
+void lets_gow(t_data *data);
+//main
+int main(int ac, char **av);
 
 //parse
+bool	check_args(int ac, char ** av);
 //bool	ft_strisint(char *str);
-bool				parse(int ac, char **av, t_data *data);
+// bool				parse(int ac, char **av, t_data *data);
 
 //philo
-void				*philosophe(void *args);
+void act(t_philo *philo);
 
 //print
 void				print_state(t_philo *p);
@@ -97,4 +106,11 @@ bool				is_alive(t_philo *philo);
 //error_handler
 int					error_occured(t_error e, t_philo *p);
 
+//routines
+void				*philosophe_routine(void *args);
+void				*supervisor_routine(void *args);
+
+
+
+long int ft_atoi(const char *);
 #endif

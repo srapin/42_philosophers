@@ -15,6 +15,8 @@ FILES = \
 		parse \
 		philo \
 		print \
+		routines\
+		utils\
 
 
 

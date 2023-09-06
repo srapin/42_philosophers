@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/04 18:13:28 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/05 19:13:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,18 +66,4 @@ void act(t_philo *philo)
 	else if (philo->state == eating)
 		philo_eat(philo);
 
-}
-
-void * philosophe(void *args)
-{
-	t_philo *p = args;
-	// printf("heyyyy i m philo %d\n", p->i);
-	// print_state(p);
-	while(is_alive(p))
-	{
-		act(p);
-		change_state(p);
-	}
-	//print_state(p);
-	return(0);
 }

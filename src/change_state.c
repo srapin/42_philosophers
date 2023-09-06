@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 00:42:37 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/04 18:11:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/05 19:15:44 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,10 +34,7 @@ void sleep_to_think(t_philo *philo)
 	//wait_for_forks(philo);
 }
 
-// void get_a_fork(t_philo *philo)
-// {
-// 	philo->state = thinking_whit_a_fork;
-// }
+
 
 void think_to_eat(t_philo *philo)
 {
@@ -49,15 +46,10 @@ void think_to_eat(t_philo *philo)
 
 void change_state(t_philo *philo)
 {
-	// if (check_death(philo))
-	// 	return ;//?
 	if (philo->state == eating)
 		eat_to_sleep(philo);
 	else if (philo->state == sleeping)
 		sleep_to_think(philo);
 	else if (philo->state == thinking)
 		think_to_eat(philo);
-	// 	get_a_fork(philo); //?
-	// else if (philo->state == thinking_whit_a_fork)
-	//print_state(philo);
 }

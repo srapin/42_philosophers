@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:44:45 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/04 18:57:46 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/05 19:17:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,5 +46,5 @@ int get_prev_fork_id(t_philo *philo)
 
 int get_philo_id(t_philo *philo)
 {
-	return philo->id + 1;
+	return philo->id;
 }
