@@ -15,14 +15,16 @@
 void *philosophe_routine(void *args)
 {
 	t_philo *p = args;
-		// print_state(p);
-	while(is_alive(p))
+	pthread_mutex_lock(&p->data->starter_m);
+	pthread_mutex_unlock(&p->data->starter_m);
+	// print_state(p);
+	while(!p->data->end)
 	{
 		// print_state(p);
 		act(p);
 		change_state(p);
 	}
-	// print_state(p);
+	print_state(p);
 	return NULL;
 }
 
@@ -30,14 +32,24 @@ void *philosophe_routine(void *args)
 void *supervisor_routine(void *arg)
 {
 	t_data *data;
-	bool	end;
-	int		i = 0;
+	t_philo *current;
+
+	int		i;
 	data = arg;
-	while(i ++ < data->number_of_philosophers)
+	// sleep(10);
+	while (!data->end)
 	{
-		while (!end)
+		i = 0;
+		while(i< data->number_of_philosophers)
 		{
-		
+			current = data->philosophers + i;
+			if (!is_alive(current))
+			{
+
+				data->end = true;
+				break;
+			}
+			i++;
 		}
 	}
 	return NULL;

@@ -3,8 +3,8 @@ NAME_UNFLAG = philo
 NAME_BONUS = philo_bonus
 
 CC = cc
-CFLAGS =-pthread -g -g3
-# CFLAGS = -Wall -Wextra -Werror -pthread -g -g3
+# CFLAGS =-pthread -g -g3
+CFLAGS = -Wall -Wextra -Werror -pthread -g -g3
 
 FILES = \
 		change_state \

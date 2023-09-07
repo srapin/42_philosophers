@@ -6,11 +6,16 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/06 19:25:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 20:02:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
+
+void ft_sleep(long long time)
+{
+	
+}
 
 void philo_eat(t_philo * philo)
 {
@@ -19,7 +24,7 @@ void philo_eat(t_philo * philo)
 		error_occured(eat_whit_not_enough_forks, philo);
 		//return;
 	}
-	sleep(philo->data->time_to_eat * 0.01);
+	sleep(philo->data->time_to_eat);
 	pthread_mutex_unlock(&(philo->data->forks[get_prev_fork_id(philo)]));
 	pthread_mutex_unlock(&(philo->data->forks[get_next_fork_id(philo)]));
 	philo->forks.prev = false;
@@ -30,7 +35,7 @@ void philo_eat(t_philo * philo)
 
 void philo_sleep(t_philo * philo)
 {
-	sleep(philo->data->time_to_sleep * 0.01);
+	sleep(philo->data->time_to_sleep);
 	//wait tine for sleep sec 
 }
 

@@ -54,7 +54,9 @@ typedef struct s_data
 	suseconds_t		start;
 	pthread_mutex_t can_write;
 	pthread_mutex_t *forks;
-	struct s_philo	**philosophers;
+	pthread_mutex_t starter_m;
+	bool			end;
+	struct s_philo	*philosophers;
 }					t_data;
 
 typedef struct s_philo
@@ -88,6 +90,7 @@ int					get_philo_id(t_philo *philo);
 //init
 void init_data(int ac, char **av, t_data *data);
 void lets_gow(t_data *data);
+void set_start_time(t_data *data);
 //main
 int main(int ac, char **av);
 

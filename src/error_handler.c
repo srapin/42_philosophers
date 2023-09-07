@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:59:44 by srapin            #+#    #+#             */
-/*   Updated: 2023/04/27 02:05:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 16:51:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,9 @@ int		error_occured(t_error e, t_philo *p)
 	}
 	else
 	{
+		pthread_mutex_lock(&(p->data->can_write));
 		printf("%s\n", mess);
+		pthread_mutex_unlock(&(p->data->can_write));
 	}
 	return e;
 }
