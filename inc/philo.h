@@ -20,6 +20,7 @@
 # include <sys/time.h>
 # include <unistd.h>
 
+
 typedef enum e_error
 {
 	none,
@@ -48,10 +49,10 @@ typedef struct s_data
 {
 	int				number_of_philosophers;
 	int				number_of_times_each_philosopher_must_eat;
-	suseconds_t		time_to_die;
-	suseconds_t		time_to_eat;
-	suseconds_t		time_to_sleep;
-	suseconds_t		start;
+	long long		time_to_die;
+	long long		time_to_eat;
+	long long		time_to_sleep;
+	long long		start;
 	pthread_mutex_t can_write;
 	pthread_mutex_t *forks;
 	pthread_mutex_t starter_m;
@@ -66,12 +67,14 @@ typedef struct s_philo
 	pthread_t		thread_id;
 	t_state		state;
 	int				has_already_eaten;
-	struct timeval	last_meal; //probleme de calcule?
+	long long	last_meal; //probleme de calcule?
 	bool			just_took_a_fork;
 	t_fork			forks;
 	pthread_mutex_t state_access;
 	pthread_mutex_t last_meal_access;
 }					t_philo;
+//act
+void act(t_philo *philo);
 
 //change_state
 int					time_for_task(t_philo *p);
@@ -89,18 +92,34 @@ int					get_philo_id(t_philo *philo);
 
 //init
 void init_data(int ac, char **av, t_data *data);
-void lets_gow(t_data *data);
 void set_start_time(t_data *data);
+
+
+//launcher
+void lets_gow(t_data *data);
+
+
 //main
 int main(int ac, char **av);
 
+
 //parse
 bool	check_args(int ac, char ** av);
+
+//time
+long long get_relativ_ms_time(t_data *data);
+long long get_ms_time();
+void update_last_meal(t_philo * philo, long long rel_time);
+
+
+
+
+
+
 //bool	ft_strisint(char *str);
 // bool				parse(int ac, char **av, t_data *data);
 
 //philo
-void act(t_philo *philo);
 
 //print
 void				print_state(t_philo *p);
@@ -113,6 +132,9 @@ int					error_occured(t_error e, t_philo *p);
 void				*philosophe_routine(void *args);
 void				*supervisor_routine(void *args);
 
+//util
+
+long long get_last_meal(t_philo *philo);
 
 
 long int ft_atoi(const char *);

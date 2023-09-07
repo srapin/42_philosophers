@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/07 19:56:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 21:16:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,7 @@
 
 bool is_alive(t_philo *philo)
 {
-	struct timeval time;
-	
-	gettimeofday(&time, NULL);
-	if (philo->data->time_to_die > time.tv_usec - philo->last_meal.tv_usec)
+	if (philo->data->time_to_die > get_relativ_ms_time(philo->data) - get_last_meal(philo))
 		return true;
 	//todo
 	philo->state = died;
@@ -30,10 +27,10 @@ bool is_alive(t_philo *philo)
 
 
 
+
 void print_state(t_philo *p)
 {
 	char *mess;
-	struct timeval time;
 	static bool	somebody_died;
 
 	mess = NULL;
@@ -49,10 +46,12 @@ void print_state(t_philo *p)
 		mess = "is thinking";
 	p->just_took_a_fork = false;
 	pthread_mutex_lock(&(p->data->can_write));
-	gettimeofday(&time ,NULL);
+	long long rel_time = get_relativ_ms_time(p->data);
 	if (!somebody_died)
-		printf("%ld %d %s\n", (time.tv_usec * (10^(3)) - p->data->start * (10^(3))) ,get_philo_id(p), mess);
+		printf("%lld %d %s\n", rel_time ,get_philo_id(p), mess);
 	if (p->state == died)
 		somebody_died = true;
 	pthread_mutex_unlock(&(p->data->can_write));
+	if (p->state == eating)
+		update_last_meal(p, rel_time);
 }

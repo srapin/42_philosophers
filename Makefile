@@ -7,15 +7,17 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror -pthread -g -g3
 
 FILES = \
+		act\
 		change_state \
 		error_handler \
 		id_getter \
 		init \
+		launcher\
 		main \
 		parse \
-		philo \
 		print \
 		routines\
+		time\
 		utils\
 
 

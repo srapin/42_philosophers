@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:59:44 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/07 16:51:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 20:54:59 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int		error_occured(t_error e, t_philo *p)
 	char *mess;
 	
 	if (e == none)
-		mess = "error occured but wich one";
+		mess = "error occured but wich one? ";
 	if (e == parse_error)
 		mess = "parse error";
 	if (e == eat_whit_not_enough_forks)

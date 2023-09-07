@@ -28,7 +28,6 @@ void *philosophe_routine(void *args)
 	return NULL;
 }
 
-
 void *supervisor_routine(void *arg)
 {
 	t_data *data;
@@ -36,7 +35,6 @@ void *supervisor_routine(void *arg)
 
 	int		i;
 	data = arg;
-	// sleep(10);
 	while (!data->end)
 	{
 		i = 0;

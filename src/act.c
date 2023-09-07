@@ -1,20 +1,30 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   philo.c                                            :+:      :+:    :+:   */
+/*   act.c                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/07 20:02:35 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 21:07:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void ft_sleep(long long time)
+void	ft_sleep(t_philo *philo)
 {
+	long long task_time = time_for_task(philo);
+	int sleep_base = 100;
+	long long target = get_relativ_ms_time(philo->data) + task_time;
+
 	
+	while (get_relativ_ms_time(philo->data) < target)
+	{
+		if (!is_alive(philo))
+			return ;
+		usleep(sleep_base);
+	}
 }
 
 void philo_eat(t_philo * philo)
@@ -24,7 +34,7 @@ void philo_eat(t_philo * philo)
 		error_occured(eat_whit_not_enough_forks, philo);
 		//return;
 	}
-	sleep(philo->data->time_to_eat);
+	ft_sleep(philo);
 	pthread_mutex_unlock(&(philo->data->forks[get_prev_fork_id(philo)]));
 	pthread_mutex_unlock(&(philo->data->forks[get_next_fork_id(philo)]));
 	philo->forks.prev = false;
@@ -35,8 +45,7 @@ void philo_eat(t_philo * philo)
 
 void philo_sleep(t_philo * philo)
 {
-	sleep(philo->data->time_to_sleep);
-	//wait tine for sleep sec 
+	ft_sleep(philo);
 }
 
 void philo_think(t_philo * philo)
@@ -55,8 +64,6 @@ void philo_think(t_philo * philo)
 		error_occured(eat_whit_not_enough_forks, philo);
 		return;
 	}
-	//waiting for forks	
-	//check death while waiting
 }
 
 
@@ -72,17 +79,3 @@ void act(t_philo *philo)
 		philo_eat(philo);
 
 }
-
-// void * philosophe(void *args)
-// {
-// 	t_philo *p = args;
-// 	// printf("heyyyy i m philo %d\n", p->i);
-// 	print_state(p);
-// 	while(is_alive(p))
-// 	{
-// 		act(p);
-// 		change_state(p);
-// 	}
-// 	//print_state(p);
-// 	return(0);
-// }

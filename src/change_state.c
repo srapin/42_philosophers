@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 00:42:37 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/05 19:15:44 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/07 21:16:54 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,15 @@ int time_for_task(t_philo *philo)
 		return philo->data->time_to_eat;
 	if (philo->state == sleeping)
 		return philo->data->time_to_sleep;
-	return -1;
+	if (philo->state == thinking)
+		return (philo->data->time_to_die - philo->data->time_to_eat - philo->data->time_to_sleep) * 0.5;
+	else
+		return -1;
 }
 
 void eat_to_sleep(t_philo *philo)
 {
 	//unlock
-	gettimeofday(&(philo->last_meal),NULL);
 	philo->state = sleeping;
 }
 
