@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:55:49 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/08 19:35:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/08 19:56:26 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,9 @@ void update_last_meal(t_philo * philo, long long rel_time)
 	printf("updating last meal %lld\n philo nb %d\n", rel_time,  philo->id);
 	// pthread_mutex_unlock(&philo->data->can_write);
 			
-	pthread_mutex_lock(&philo->last_meal_access);
-	philo->last_meal = rel_time;
-	pthread_mutex_unlock(&philo->last_meal_access);
+	// pthread_mutex_lock(&philo->last_meal_access);
+	// philo->last_meal = rel_time;
+	// pthread_mutex_unlock(&philo->last_meal_access);
 }
 
 long long get_ms_time()

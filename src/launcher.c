@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:59:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/08 18:08:47 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/08 19:55:32 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,7 @@ void launch_philos(t_data *data)
 	}
 	set_start_time(data);
 	pthread_mutex_unlock(&data->starter_m);
+	// philosophe_routine(data->philosophers[])
 }
 
 void lets_gow(t_data *data)
