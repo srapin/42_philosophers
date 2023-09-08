@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:59:39 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/07 21:00:47 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/08 18:08:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,14 +15,14 @@
 
 void set_start_time(t_data *data)
 {
-	int i = -1;
+	// int i = -1;
 
 	data->start = get_ms_time();
-	while (i <= data->number_of_philosophers)
-	{
-		data->philosophers[i].last_meal = data->start;
-		i++;
-	}	
+	// while (i <= data->number_of_philosophers)
+	// {
+	// 	data->philosophers[i].last_meal = data->start;
+	// 	i++;
+	// }	
 }
 
 void launch_philos(t_data *data)

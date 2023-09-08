@@ -75,6 +75,7 @@ void init_philo(t_data * data, t_philo *philo, int i)
 	philo->forks.next = false;
 	philo->state = thinking;
 	philo->data = data;
+	philo->last_meal = 0;
 }
 
 void init_philos(t_data *data)
