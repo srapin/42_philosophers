@@ -44,6 +44,7 @@ void init_one_philo_mutexes(t_philo *philo)
 {
 	pthread_mutex_init(&(philo->state_access), NULL);
 	pthread_mutex_init(&(philo->last_meal_access), NULL);
+	pthread_mutex_init(&(philo->has_already_eaten_access), NULL);
 }
 
 void init_philos_mutexes(t_data *data)
@@ -64,6 +65,7 @@ void init_mutexes(t_data *data)
 	init_philos_mutexes(data);
 	pthread_mutex_init(&(data->can_write), NULL);
 	pthread_mutex_init(&(data->starter_m), NULL);
+	pthread_mutex_init(&(data->end_access), NULL);
 }
 
 void init_philo(t_data * data, t_philo *philo, int i)

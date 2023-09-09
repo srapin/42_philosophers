@@ -56,6 +56,8 @@ typedef struct s_data
 	pthread_mutex_t can_write;
 	pthread_mutex_t *forks;
 	pthread_mutex_t starter_m;
+	pthread_mutex_t end_access;
+	pthread_t		number_of_meal_checker_thread;
 	bool			end;
 	struct s_philo	*philosophers;
 }					t_data;
@@ -72,6 +74,7 @@ typedef struct s_philo
 	t_fork			forks;
 	pthread_mutex_t state_access;
 	pthread_mutex_t last_meal_access;
+	pthread_mutex_t has_already_eaten_access;
 }					t_philo;
 //act
 void act(t_philo *philo);
@@ -82,6 +85,8 @@ void				change_state(t_philo *philo);
 
 //error_handler
 int		error_occured(t_error e, t_philo *p);
+// exit
+void ft_exit(t_data *data);
 
 //id_getter
 int					get_next_neighbours_id(t_philo *philo);
@@ -135,7 +140,9 @@ void				*supervisor_routine(void *args);
 //util
 
 long long get_last_meal(t_philo *philo);
-
-
+void update_end(t_data *data, bool value);
+bool check_end(t_data *data);
+void update_has_already_eaten(t_philo *philo);
+int get_has_already_eaten(t_philo *philo);
 long int ft_atoi(const char *);
 #endif

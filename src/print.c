@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/08 19:33:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/09 20:20:28 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,17 @@
 
 bool is_alive(t_philo *philo)
 {
-	if (philo->data->time_to_die > get_relativ_ms_time(philo->data) - get_last_meal(philo))
+	long long last_meal;
+
+	last_meal = get_last_meal(philo);
+	if (last_meal < 0)
+		last_meal = 0;
+	if (philo->data->time_to_die > get_relativ_ms_time(philo->data) - last_meal)
 		return true;
-	//todo
 	pthread_mutex_lock(&philo->state_access);
 	philo->state = died;
 	pthread_mutex_unlock(&philo->state_access);
-	philo->data->end = true;
+	update_end(philo->data, true);
 	print_state(philo);
 	return false; //exit?????
 }
@@ -40,12 +44,14 @@ void print_state(t_philo *p)
 	pthread_mutex_lock(&p->state_access);
 	state = p->state;
 	pthread_mutex_unlock(&p->state_access);
-	if (state == died)
+	if (state == eating && p->forks.prev && p->forks.next)
+		mess = "is eating";
+	else if (state == eating)
+		return;
+	else if (state == died)
 		mess = "died";
 	else if (p->just_took_a_fork) //check 2 fourchette
 		mess = "has taken a fork";
-	else if (state == eating)
-		mess = "is eating";
 	else if (state == sleeping)
 		mess = "is sleeping";
 	else if (state == thinking)

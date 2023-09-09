@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/28 00:42:37 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/08 19:56:06 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/09 20:17:39 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ void think_to_eat(t_philo *philo)
 void change_state(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->state_access);
-	if (philo->state == eating)
+	if (philo->state == eating && get_prev_fork_id(philo) != get_next_fork_id(philo))
 		eat_to_sleep(philo);
 	else if (philo->state == sleeping)
 		sleep_to_think(philo);

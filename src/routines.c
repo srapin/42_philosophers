@@ -17,10 +17,9 @@ void *philosophe_routine(void *args)
 	t_philo *p = args;
 	pthread_mutex_lock(&p->data->starter_m);
 	pthread_mutex_unlock(&p->data->starter_m);
-	// print_state(p);
-	while(!p->data->end)
+	
+	while(!check_end(p->data))
 	{
-		// print_state(p);
 		act(p);
 		change_state(p);
 	}
@@ -35,7 +34,7 @@ void *supervisor_routine(void *arg)
 
 	int		i;
 	data = arg;
-	while (!data->end)
+	while (!check_end(data))
 	{
 		i = 0;
 		while(i< data->number_of_philosophers)
@@ -43,12 +42,12 @@ void *supervisor_routine(void *arg)
 			current = data->philosophers + i;
 			if (!is_alive(current))
 			{
-
-				data->end = true;
+				update_end(data, true);
 				break;
 			}
 			i++;
 		}
+		usleep(500); //todel
 	}
 	return NULL;
 }

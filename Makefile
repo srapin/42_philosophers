@@ -10,6 +10,7 @@ FILES = \
 		act\
 		change_state \
 		error_handler \
+		exit\
 		id_getter \
 		init \
 		launcher\
