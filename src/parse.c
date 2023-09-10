@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 01:29:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/05 19:08:23 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/10 20:52:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,8 @@ int	is_whitespace(char c)
 
 long int	ft_atoi(const char *nptr)
 {
-	int	i;
-	int	neg;
+	int			i;
+	int			neg;
 	long int	number;
 
 	i = 0;
@@ -68,20 +68,18 @@ long int	ft_atoi(const char *nptr)
 	return (neg * number);
 }
 
-bool	check_args(int ac, char ** av)
+bool	check_args(int ac, char **av)
 {
-	
-	int i;
-	
-	if (ac != 5 && ac !=6 )
+	int	i;
+
+	if (ac != 5 && ac != 6)
 		return (false);
 	i = 1;
 	while (i < ac)
 	{
 		if (!ft_strisint(av[i]) || ft_atoi(av[i]) < 0)
-			return false;
+			return (false);
 		i++;
 	}
-	return true;
+	return (true);
 }
-

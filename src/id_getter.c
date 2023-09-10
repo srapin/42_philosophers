@@ -1,26 +1,33 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   id_getter.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/04/27 01:29:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/09 21:27:35 by srapin           ###   ########.fr       */
+/*   Created: 2023/04/27 01:44:45 by srapin            #+#    #+#             */
+/*   Updated: 2023/09/10 20:45:44 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-int main(int ac, char **av)
+int	get_next_fork_id(t_philo *philo)
 {
-	t_data data;
-	// pthread_t thread;
-	// void *res;
+	int	fork;
 
-	if (!check_args(ac, av))
-		return error_occured(parse_error, NULL);
-	init_data(ac, av, &data);
-	lets_gow(&data);
-	ft_exit(&data);
+	fork = philo->id + 1;
+	if (fork > philo->data->number_of_philosophers - 1)
+		return (0);
+	return (fork);
+}
+
+int	get_prev_fork_id(t_philo *philo)
+{
+	return (philo->id);
+}
+
+int	get_philo_id(t_philo *philo)
+{
+	return (philo->id + 1);
 }

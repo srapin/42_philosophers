@@ -11,15 +11,17 @@ FILES = \
 		change_state \
 		error_handler \
 		exit\
+		get_mutex\
 		id_getter \
 		init \
+		init_mutexes \
 		launcher\
 		main \
 		parse \
 		print \
 		routines\
+		set_mutex\
 		time\
-		utils\
 
 
 
