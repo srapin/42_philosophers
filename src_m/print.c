@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/09 20:20:28 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/10 19:34:40 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,26 @@ bool is_alive(t_philo *philo)
 		last_meal = 0;
 	if (philo->data->time_to_die > get_relativ_ms_time(philo->data) - last_meal)
 		return true;
-	pthread_mutex_lock(&philo->state_access);
-	philo->state = died;
-	pthread_mutex_unlock(&philo->state_access);
-	update_end(philo->data, true);
-	print_state(philo);
+	set_state(philo, died);
+	// print_state(philo);
 	return false; //exit?????
+}
+
+t_state get_state(t_philo *philo)
+{
+	t_state s;
+
+	pthread_mutex_lock(&philo->state_access);
+	s = philo->state;
+	pthread_mutex_unlock(&philo->state_access);
+	return s;
+}
+
+void set_state(t_philo *philo, t_state s)
+{
+	pthread_mutex_lock(&philo->state_access);
+	philo->state = s;
+	pthread_mutex_unlock(&philo->state_access);
 }
 
 
@@ -40,10 +54,7 @@ void print_state(t_philo *p)
 	static bool	somebody_died;
 
 	mess = NULL;
-	t_state state;
-	pthread_mutex_lock(&p->state_access);
-	state = p->state;
-	pthread_mutex_unlock(&p->state_access);
+	t_state state = get_state(p);
 	if (state == eating && p->forks.prev && p->forks.next)
 		mess = "is eating";
 	else if (state == eating)
@@ -56,8 +67,8 @@ void print_state(t_philo *p)
 		mess = "is sleeping";
 	else if (state == thinking)
 		mess = "is thinking";
-	p->just_took_a_fork = false;
 	pthread_mutex_lock(&(p->data->can_write));
+	p->just_took_a_fork = false;
 	long long rel_time = get_relativ_ms_time(p->data);
 	if (!somebody_died)
 		printf("%lld %d %s\n", rel_time ,get_philo_id(p), mess);

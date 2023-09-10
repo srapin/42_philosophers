@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/09 20:49:48 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/09 21:12:02 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/10 19:11:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,12 +15,19 @@
 void    wait_other_threads(t_data *data)
 {
     int i = 0;
+    int ret;
     
     if (data->number_of_times_each_philosopher_must_eat > 0)
         pthread_join(data->number_of_meal_checker_thread, NULL);
     while (i < data->number_of_philosophers)
     {
-        pthread_join(data->philosophers[i].thread_id, NULL);
+        ret = pthread_join(data->philosophers[i].thread_id, NULL);
+        if (ret)
+        {
+            pthread_mutex_lock(&data->can_write);
+            printf("some prob errcode = %d\n", ret);
+            pthread_mutex_unlock(&data->can_write);
+        }
         i++;
     }
 }

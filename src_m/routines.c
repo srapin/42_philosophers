@@ -12,18 +12,38 @@
 
 #include "../inc/philo.h"
 
+void drop_forks(t_philo * philo)
+{
+	if (philo->forks.prev)
+	{
+		pthread_mutex_unlock(&philo->data->forks[get_prev_fork_id(philo)]);
+		philo->forks.prev = false;
+	}
+	if (philo->forks.next)
+	{
+		pthread_mutex_unlock(&philo->data->forks[get_next_fork_id(philo)]);
+		philo->forks.next = false;
+	}
+
+}
+
 void *philosophe_routine(void *args)
 {
-	t_philo *p = args;
-	pthread_mutex_lock(&p->data->starter_m);
-	pthread_mutex_unlock(&p->data->starter_m);
+	t_philo *philo = args;
+	pthread_mutex_lock(&philo->data->starter_m);
+	pthread_mutex_unlock(&philo->data->starter_m);
 	
-	while(!check_end(p->data))
+	while(!check_end(philo->data))
 	{
-		act(p);
-		change_state(p);
+		act(philo);
+		change_state(philo);
 	}
-	print_state(p);
+	print_state(philo);
+	drop_forks(philo);
+	// pthread_mutex_lock(&p->data->can_write);
+	// printf("philo nb %d exit\n", p->id);
+	// pthread_mutex_unlock(&p->data->can_write);
+
 	return NULL;
 }
 

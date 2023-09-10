@@ -145,4 +145,6 @@ bool check_end(t_data *data);
 void update_has_already_eaten(t_philo *philo);
 int get_has_already_eaten(t_philo *philo);
 long int ft_atoi(const char *);
+void set_state(t_philo *philo, t_state s);
+t_state get_state(t_philo *philo);
 #endif
