@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 01:51:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 01:03:29 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,12 +22,12 @@ void philo_died(t_philo *philo)
     while(philo->fork_n)
         drop_fork(philo);
     set_state(philo, died);
-    sem_wait(philo->data->write_access);
-	// if (!some_philo_died(philo->data))
-	printf("%lld %d died\n", get_relativ_ms_time(philo->data), get_philo_id(philo));
-    sem_post(philo->data->write_access);
+    // sem_wait(philo->data->write_access);
+	// // if (!some_philo_died(philo->data))
+	// printf("%lld %d died\n", get_relativ_ms_time(philo->data), get_philo_id(philo));
+    // sem_post(philo->data->write_access);
     sem_post(philo->data->end);
-    exit(0);
+    exit(1);
 }
 
 void	philo_wait(t_philo *philo)
@@ -37,7 +37,7 @@ void	philo_wait(t_philo *philo)
 	long long	target;
 
 	task_time = time_for_task(philo);
-	sleep_base = 100;
+	sleep_base = 5;
 	target = get_relativ_ms_time(philo->data) + task_time;
 	while (get_relativ_ms_time(philo->data) < target)
 	{

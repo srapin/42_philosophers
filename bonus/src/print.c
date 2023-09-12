@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:30:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 00:01:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 00:48:08 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ void	print_state(t_philo *p)
   rel_time = get_relativ_ms_time(p->data);
 	if (mess)
 		printf("%lld %d %s\n", rel_time, get_philo_id(p), mess);
-  sem_post(p->data->write_access);
   if (state == eating)
     update_last_meal(p, rel_time);
+  sem_post(p->data->write_access);
 }

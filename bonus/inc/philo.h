@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 01:03:59 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 00:08:22 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,9 @@
 #include <semaphore.h>
 #include <fcntl.h>           /* For O_* constants */
 #include <sys/stat.h>        /* For mode constants */
+#include <signal.h>
+#include <sys/types.h>
+#include <sys/wait.h>
        
 typedef enum e_error
 {

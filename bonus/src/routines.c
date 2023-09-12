@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 01:57:31 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 00:53:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void init_philo(t_philo *philo, t_data *data, int i)
     philo->id = i;
     philo->data = data;
     philo->state = thinking;
-    philo->last_meal = 0;
+    philo->last_meal = -1;
     philo->just_took_a_fork = false;
     philo->fork_n = 0;
     philo->has_already_eaten = 0;
@@ -65,6 +65,6 @@ void end_check_routine(t_data *data)
     sem_wait(data->end);
     // printf("lolfrom checkr\n");
     if (number_of_times_each_philosopher_must_eat_specified(data))
-        kill(pid, 130);
+        kill(pid, SIGKILL);
     exit(0);
 }
