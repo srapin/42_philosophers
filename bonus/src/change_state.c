@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:22:30 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/11 22:43:29 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 19:35:53 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,6 @@ void	change_state(t_philo *philo)
 		set_state(philo, sleeping);
 	else if (state == sleeping)
 		set_state(philo, thinking);
-	else if (state == thinking)
+	else if (state == thinking )
 		set_state(philo, eating);
 }

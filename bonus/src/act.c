@@ -6,13 +6,15 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/13 01:03:29 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 19:40:38 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 void    drop_fork(t_philo *philo)
 {
+	if (philo->fork_n <= 0)
+		return;
     sem_post(philo->data->forks);
     philo->fork_n--;
     
@@ -51,15 +53,18 @@ void	philo_wait(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
+	if (philo->fork_n < 2)
+		return;
+
 	philo_wait(philo);
-	if (philo->fork_n == 2)
-    {
-		update_has_already_eaten(philo);
+	// if (philo->fork_n == 2)
+    // {
+	// 	update_has_already_eaten(philo);
               
-    }
+    // }
     drop_fork(philo);
-    if (philo->data->number_of_philosophers <= 1)
-        return;
+    // if (philo->data->number_of_philosophers <= 1)
+    //     return;
     drop_fork(philo);
 	// if (philo->forks.prev)
 	// {

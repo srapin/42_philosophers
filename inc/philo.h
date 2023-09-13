@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:10:54 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/10 21:11:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 18:23:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,4 +119,5 @@ void				update_end(t_data *data, bool value);
 void				update_has_already_eaten(t_philo *philo);
 void				set_state(t_philo *philo, t_state s);
 void				update_last_meal(t_philo *philo, long long rel_time);
+long int	ft_atoi(const char *nptr);
 #endif
