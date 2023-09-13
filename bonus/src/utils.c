@@ -6,25 +6,16 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 22:10:21 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 01:37:24 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 23:17:07 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-// long get_sem_val(sem_t s)
-// {
-//     return s.__align;
-// }
-
-// bool some_philo_died(t_data *data)
-// {
-//     return get_sem_val(*data->end)  >= 0;
-// }
 
 bool still_alive(t_philo *philo)
 {
-    bool is_alive = (get_relativ_ms_time(philo->data) - philo->last_meal < philo->data->time_to_die);
+    bool is_alive = (get_relativ_ms_time(philo->data) - philo->last_meal <= philo->data->time_to_die);
     if (!is_alive)
     {
         philo_died(philo);
@@ -55,15 +46,6 @@ int	get_has_already_eaten(t_philo *philo)
 	return (has_already_eaten);
 }
 
-// bool	check_end(t_data *data)
-// {
-// 	bool	end;
-
-// 	pthread_mutex_lock(&data->end_access);
-// 	end = data->end;
-// 	pthread_mutex_unlock(&data->end_access);
-// 	return (end);
-// }
 
 long long	get_last_meal(t_philo *philo)
 {
@@ -84,8 +66,12 @@ long long	get_last_meal(t_philo *philo)
 void	update_has_already_eaten(t_philo *philo)
 {
 	philo->has_already_eaten++;
-    if (philo->has_already_eaten == philo->data->number_of_times_each_philosopher_must_eat)
+		// printf("incrementing %d %d %d\n",  philo->data->number_of_times_each_philosopher_must_eat, philo->has_already_eaten, philo->id );	
+    if (philo->has_already_eaten == philo->data->number_of_times_each_philosopher_must_eat && number_of_times_each_philosopher_must_eat_specified(philo->data))
+	{
+		// printf("incrementing\n");	
         sem_post(philo->data->eat_enough);
+	}
 }
 
 void	update_last_meal(t_philo *philo, long long rel_time)

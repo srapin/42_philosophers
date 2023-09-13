@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:27:27 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/13 00:48:57 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/14 00:40:11 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,7 @@ int wait_philos(t_data *data, pid_t *pids)
 				dead_philo = i + 1;
         i++;
     }
+    // printf("end_wait\n");
     return dead_philo;
 }
 
@@ -45,22 +46,20 @@ void print_end(t_data * data, int dead_philo)
 {
     if (dead_philo < 0)
         return;
-    sem_wait(data->write_access);
-	// if (!some_philo_died(philo->data))
-	printf("%lld %d died\n", get_relativ_ms_time(data), dead_philo);
-    sem_post(data->write_access);
 }
 void monitor(t_data *data, pid_t *pids)
 {
+    // printf("welcom in monitor\n");
     int status;
     int checker_pid = pids[data->number_of_philosophers];
-    pid_t waitpid(pid_t pid, int *status, int options);
+    // pid_t waitpid(pid_t pid, int *status, int options);
+    // printf("before checker\n");
     waitpid(checker_pid, NULL, 0);
-    sleep(1);
+    // printf("after checker\n");
     kill_all_philos(data, pids);
-    sleep(1);
-    print_end(data, wait_philos(data, pids));
-    printf("lol\n");
+    wait_philos(data, pids);
+    // print_end(data, wait_philos(data, pids));
+    // printf("lol\n");
 }
 
 int	main(int ac, char **av)
@@ -74,5 +73,12 @@ int	main(int ac, char **av)
     if (!pids)
         return (0);
     monitor(&data,pids );
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
+    // sem_post(data.write_access);
 	// ft_exit(&data);
 }

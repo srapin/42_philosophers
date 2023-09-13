@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/13 00:08:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 21:39:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ typedef struct s_philo
 //act
 void				act(t_philo *philo);
 void philo_died(t_philo *philo);
+void	philo_wait(t_philo *philo);
 //change_state
 void				change_state(t_philo *philo);
 //error

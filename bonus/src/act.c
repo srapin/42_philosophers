@@ -6,13 +6,14 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/13 19:40:38 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/14 00:55:34 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 void    drop_fork(t_philo *philo)
 {
+	// printf("droped fork\n");
 	if (philo->fork_n <= 0)
 		return;
     sem_post(philo->data->forks);
@@ -22,12 +23,14 @@ void    drop_fork(t_philo *philo)
 void philo_died(t_philo *philo)
 {
     while(philo->fork_n)
+	{
+
         drop_fork(philo);
+	}
+
     set_state(philo, died);
-    // sem_wait(philo->data->write_access);
-	// // if (!some_philo_died(philo->data))
-	// printf("%lld %d died\n", get_relativ_ms_time(philo->data), get_philo_id(philo));
-    // sem_post(philo->data->write_access);
+    sem_wait(philo->data->write_access);
+	printf("%lld %d died\n", get_relativ_ms_time(philo->data), get_philo_id(philo));
     sem_post(philo->data->end);
     exit(1);
 }
@@ -39,7 +42,7 @@ void	philo_wait(t_philo *philo)
 	long long	target;
 
 	task_time = time_for_task(philo);
-	sleep_base = 5;
+	sleep_base = 500;
 	target = get_relativ_ms_time(philo->data) + task_time;
 	while (get_relativ_ms_time(philo->data) < target)
 	{
@@ -49,19 +52,40 @@ void	philo_wait(t_philo *philo)
 	}
 }
 
+void	philo_wait_death(t_philo *philo)
+{
+	// long long	task_time;
+	int			sleep_base;
+	long long	target;
+
+	// task_time = philo->data->time_to_die;
+	// usleep()
+	// sleep_base = 5;
+	usleep((philo->data->time_to_die + philo->last_meal - get_relativ_ms_time(philo->data) + 1) * 1000);
+	
+	// philo->last_meal + get_relativ_ms_time(philo->data) philo->data->time_to_die;
+	// while (get_relativ_ms_time(philo->data) < target)
+	// {
+	// 	usleep(sleep_base);
+    //     if (!still_alive(philo))
+    //         return;
+	// }
+}
+
 
 
 void	philo_eat(t_philo *philo)
 {
-	if (philo->fork_n < 2)
-		return;
+	while (philo->fork_n < 2)
+		philo_wait_death(philo);
+		// return;
 
 	philo_wait(philo);
-	// if (philo->fork_n == 2)
-    // {
-	// 	update_has_already_eaten(philo);
+	if (philo->fork_n == 2)
+    {
+		update_has_already_eaten(philo);
               
-    // }
+    }
     drop_fork(philo);
     // if (philo->data->number_of_philosophers <= 1)
     //     return;
@@ -83,12 +107,43 @@ void	philo_sleep(t_philo *philo)
 	philo_wait(philo);
 }
 
+// void check_death_while_waiting_for_forks(t_philo *philo)
+// {
+// 	// sem_close(philo->data->forks);
+// 	philo_wait_death(philo);
+// 	printf("philo should be dead %d %lld\n",get_philo_id(philo), get_relativ_ms_time(philo->data));
+// 	// philo_died(philo);
+// 	// sem_wait(philo->data->write_access);
+// 	// printf("philo should be dead %d %lld\n",get_philo_id(philo), get_relativ_ms_time(philo->data));
+// 	int i = -1;
+// 		// printf("philo %d, %ld\n", philo->id, get_sem_val);
+// 	// sem_post(philo->data->end);
+// 	while(i++<philo->data->number_of_philosophers)
+// 	{
+// 		sem_post(philo->data->forks);
+// 		sem_post(philo->data->forks);
+// 	}
+// 	// printf("%lld %d died, frm child\n", get_relativ_ms_time(philo->data), get_philo_id(philo));
+// 	// usleep(5000);
+// 	exit(1);
+// }
+
 void take_fork(t_philo *philo)
 {
-    sem_wait(philo->data->forks);
+	int status;
+	while (true)
+	{
+		if (philo->data->forks->__align > 0)
+		{
+			sem_wait(philo->data->forks);
+			break;
+		}
+		still_alive(philo);	
+	}
     philo->fork_n++;
     philo->just_took_a_fork = true;
-    print_state(philo);
+	if (still_alive(philo))
+    	print_state(philo);
 }
 
 void	philo_think(t_philo *philo)
