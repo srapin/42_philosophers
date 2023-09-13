@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/10 21:00:55 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/10 21:01:42 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 18:36:08 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ void	*supervisor_routine(void *arg)
 			}
 			i++;
 		}
-		usleep(500);
+		usleep(10);
 	}
 	return (NULL);
 }

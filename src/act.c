@@ -6,33 +6,35 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/10 20:34:03 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 19:12:41 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/philo.h"
 
-void	philo_wait(t_philo *philo)
+bool	philo_wait(t_philo *philo)
 {
 	long long	task_time;
 	int			sleep_base;
 	long long	target;
 
 	task_time = time_for_task(philo);
-	sleep_base = 100;
+	sleep_base = 10;
 	target = get_relativ_ms_time(philo->data) + task_time;
 	while (get_relativ_ms_time(philo->data) < target)
 	{
-		if (get_state(philo) == died)
-			return ;
+		if (check_end(philo->data))
+			return false;
 		usleep(sleep_base);
 	}
+	return true;
 }
 
 void	philo_eat(t_philo *philo)
 {
-	philo_wait(philo);
-	if (philo->forks.prev && philo->forks.next)
+	if (!philo_wait(philo))
+		return;	
+	if (philo->forks.prev && philo->forks.next && !check_end(philo->data))
 		update_has_already_eaten(philo);
 	if (philo->forks.prev)
 	{
@@ -58,17 +60,19 @@ void	philo_think(t_philo *philo)
 
 	prev_fork_id = get_prev_fork_id(philo);
 	next_fork_id = get_next_fork_id(philo);
-	philo_wait(philo);
+	if (!philo_wait(philo))
+		return;	
+	// philo_wait(philo);
 	if (philo->id % 2)
 	{
 		take_fork(philo, prev_fork_id, &philo->forks.prev);
-		if (prev_fork_id != next_fork_id)
+		if (prev_fork_id != next_fork_id && !check_end(philo->data))
 			take_fork(philo, next_fork_id, &philo->forks.next);
 	}
 	else
 	{
 		take_fork(philo, next_fork_id, &philo->forks.next);
-		if (prev_fork_id != next_fork_id)
+		if (prev_fork_id != next_fork_id&& !check_end(philo->data))
 			take_fork(philo, prev_fork_id, &philo->forks.prev);
 	}
 }

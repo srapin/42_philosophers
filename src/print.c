@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 02:12:19 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/10 21:00:20 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/13 19:11:08 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,12 +31,12 @@ void	print_state(t_philo *p)
 		mess = "has taken a fork";
 	else if (state == sleeping)
 		mess = "is sleeping";
-	else if (state == thinking)
+	else if (state == thinking && get_last_meal(p) >= 0)
 		mess = "is thinking";
 	pthread_mutex_lock(&(p->data->can_write));
 	p->just_took_a_fork = false;
 	rel_time = get_relativ_ms_time(p->data);
-	if (!somebody_died && mess)
+	if (!somebody_died && mess && (!check_end(p->data) || state == died))
 		printf("%lld %d %s\n", rel_time, get_philo_id(p), mess);
 	if (state == died)
 		somebody_died = true;
