@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:04:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:35:54 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	philosophe_routine(t_data *data, int i)
 	t_philo	philo;
 
 	init_philo(&philo, data, i);
-	while (!check_end())
+	while (!check_end(data))
 	{
 		act(&philo);
 		change_state(&philo);
@@ -59,7 +59,7 @@ void	*death_checker_routine(void *args)
 	t_philo	*philo;
 
 	philo = args;
-	while (!check_end())
+	while (!check_end(philo->data))
 	{
 		still_alive(philo);
 		usleep(500);

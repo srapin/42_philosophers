@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:23:25 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:14:20 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:40:16 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	close_data_sem(t_data *data)
 	sem_close(data->write_access);
 	sem_close(data->print_end);
 	sem_close(data->eat_enough);
+	sem_close(data->end_access);
+	sem_close(data->print_end_access);
 }
 
 void	monitor_exit(t_data *data, pid_t *pids)

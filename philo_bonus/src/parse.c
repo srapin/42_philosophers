@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:30:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:32:58 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:26:17 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,5 +81,7 @@ bool	check_args(int ac, char **av)
 			return (false);
 		i++;
 	}
+	if (ft_atoi(av[1]) == 0)
+		return (false);
 	return (true);
 }

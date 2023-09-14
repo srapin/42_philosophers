@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:25:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:01:36 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:40:36 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ void	init_sem(t_data *data)
 	data->forks = sem_open("forks", O_CREAT, 0644,
 			data->number_of_philosophers);
 	data->write_access = sem_open("write_access", O_CREAT, 0644, 1);
+	data->end_access = sem_open("end_access", O_CREAT, 0644, 1);
+	data->print_end_access = sem_open("print_end_access", O_CREAT, 0644, 1);
 	if (max_meals_specified(data))
 		data->eat_enough = sem_open("eat_enough", O_CREAT, 0644,
 				data->number_of_philosophers);

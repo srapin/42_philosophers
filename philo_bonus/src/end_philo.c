@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:56:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:17:56 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:40:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,9 @@ void	close_philo_sem(t_philo *philo)
 	sem_close(philo->state_access);
 	sem_close(philo->data->forks);
 	sem_close(philo->data->write_access);
+	sem_close(philo->data->end_access);
 	sem_close(philo->data->eat_enough);
+	sem_close(philo->data->print_end_access);
 	if (philo->data->end)
 		sem_close(philo->data->end);
 	if (philo->data->print_end)
@@ -38,7 +40,7 @@ void	philo_died(t_philo *philo)
 	set_end(philo->data);
 	sem_wait(philo->data->write_access);
 	usleep(500);
-	if (!check_print_end())
+	if (!check_print_end(philo->data))
 		printf("%lld %d died\n", get_relativ_ms_time(philo->data),
 			get_philo_id(philo));
 	set_print_end(philo->data);

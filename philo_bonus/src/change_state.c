@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:22:30 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:25:29 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:48:07 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	change_state(t_philo *philo)
 	t_state	state;
 
 	state = get_state(philo);
-	if (state == died || check_end())
+	if (state == died || check_end(philo->data))
 	{
 		return ;
 	}

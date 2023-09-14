@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:02:05 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:39:45 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ typedef struct s_data
 	long long	start;
 	sem_t		*forks;
 	sem_t		*write_access;
+	sem_t		*end_access;
+	sem_t		*print_end_access;
 	sem_t		*eat_enough;
 	sem_t		*end;
 	sem_t		*print_end;
@@ -134,8 +136,8 @@ int				time_for_task(t_philo *p);
 
 //utlis_end
 void			set_end(t_data *data);
-bool			check_end(void);
-bool			check_print_end(void);
+bool			check_end(t_data *data);
+bool			check_print_end(t_data *data);
 void			set_print_end(t_data *data);
 
 //utils_getter

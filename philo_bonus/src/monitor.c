@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:12:50 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:32:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:34:45 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	monitor(t_data *data, pid_t *pids)
 
 	checker_pid = pids[data->number_of_philosophers];
 	waitpid(checker_pid, NULL, 0);
-	while (!check_end())
+	while (!check_end(data))
 		usleep(500);
 	monitor_exit(data, pids);
 }

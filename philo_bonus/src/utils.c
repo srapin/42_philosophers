@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 22:10:21 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:03:06 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:39:18 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ void	unlink_sem(void)
 	sem_unlink("forks");
 	sem_unlink("write_access");
 	sem_unlink("end");
+	sem_unlink("end_access");
 	sem_unlink("print_end");
 	sem_unlink("eat_enough");
+	sem_unlink("print_end_access");
 }

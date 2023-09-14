@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:24:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:34:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ void	philo_wait(t_philo *philo)
 	while (get_relativ_ms_time(philo->data) < target)
 	{
 		usleep(sleep_base);
-		if (check_end())
+		if (check_end(philo->data))
 			return ;
 	}
 }
