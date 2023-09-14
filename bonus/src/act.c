@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 00:55:34 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/14 02:26:50 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,22 +54,7 @@ void	philo_wait(t_philo *philo)
 
 void	philo_wait_death(t_philo *philo)
 {
-	// long long	task_time;
-	int			sleep_base;
-	long long	target;
-
-	// task_time = philo->data->time_to_die;
-	// usleep()
-	// sleep_base = 5;
 	usleep((philo->data->time_to_die + philo->last_meal - get_relativ_ms_time(philo->data) + 1) * 1000);
-	
-	// philo->last_meal + get_relativ_ms_time(philo->data) philo->data->time_to_die;
-	// while (get_relativ_ms_time(philo->data) < target)
-	// {
-	// 	usleep(sleep_base);
-    //     if (!still_alive(philo))
-    //         return;
-	// }
 }
 
 
@@ -128,22 +113,31 @@ void	philo_sleep(t_philo *philo)
 // 	exit(1);
 // }
 
+
+void *death_while_wait_checker(void *args)
+{
+	t_philo *philo = philo;
+
+	philo_wait_death(philo);
+	still_alive(philo);
+	// philo_died(philo);
+	return NULL;
+}
+
 void take_fork(t_philo *philo)
 {
 	int status;
-	while (true)
-	{
-		if (philo->data->forks->__align > 0)
-		{
-			sem_wait(philo->data->forks);
-			break;
-		}
-		still_alive(philo);	
-	}
+	pthread_t thread_id;
+
+		
+		// &data->philosophers[i].thread_id, NULL,	philosophe_routine, data->philosophers + i);
+	// pthread_create(&thread_id, NULL, death_while_wait_checker, philo);
+	// pthread_detach(thread_id);
+	sem_wait(philo->data->forks);
+	still_alive(philo);
     philo->fork_n++;
     philo->just_took_a_fork = true;
-	if (still_alive(philo))
-    	print_state(philo);
+    print_state(philo);
 }
 
 void	philo_think(t_philo *philo)

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:26:36 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/12 01:54:07 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/14 01:20:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,9 +58,5 @@ pid_t *	lets_gow(t_data *data)
     data->start = get_ms_time();
 	launch_philos(data, pids);
     launch_end_check(data, pids);
-    // sleep(5);
-    // philosophe_routine(data, 4);
     return pids;
-	// launch_number_of_meal_checker(data);
-	// supervisor_routine(data);
 }

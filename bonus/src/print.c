@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:30:53 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/13 21:20:47 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/14 01:21:35 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,17 +29,12 @@ void	print_state(t_philo *p)
     return;
   if (p->just_took_a_fork)
     mess = "has taken a fork";
-  // printf("before sem printing\n");
   sem_wait(p->data->write_access);
   rel_time = get_relativ_ms_time(p->data);
-  // printf("before mess test\n");
 	if (mess )
 		printf("%lld %d %s\n", rel_time, get_philo_id(p), mess);
-  // if (p->just_took_a_fork)
-  //   printf("got now %d forks\n", p->fork_n);
   if (state == eating)
     update_last_meal(p, rel_time);
   p->just_took_a_fork = false;
   sem_post(p->data->write_access);
-  // printf("after sem printing\n");
 }
