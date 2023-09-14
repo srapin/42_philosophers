@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:42:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:04:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ bool	still_alive(t_philo *philo)
 			- get_last_meal(philo) <= philo->data->time_to_die);
 	if (!is_alive)
 		philo_died(philo);
-	return (is_alive && philo->state != died);
+	return (is_alive && get_state(philo) != died);
 }
 
 void	*death_checker_routine(void *args)

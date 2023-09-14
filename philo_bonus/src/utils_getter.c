@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:17:54 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:38:32 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:03:52 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,11 @@
 
 t_state	get_state(t_philo *philo)
 {
-	return (philo->state);
+	t_state s;
+	sem_wait(philo->state_access);
+	s = philo->state;
+	sem_post(philo->state_access);
+	return (s);
 }
 
 int	get_has_already_eaten(t_philo *philo)

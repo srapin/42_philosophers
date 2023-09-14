@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:23:25 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:28:32 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:14:20 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,6 @@ void	monitor_exit(t_data *data, pid_t *pids)
 {
 	wait_philos(data, pids);
 	free(pids);
-	close_data_sem(data);
 	unlink_sem();
+	close_data_sem(data);
 }

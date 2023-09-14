@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:42:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:02:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -73,6 +73,7 @@ typedef struct s_philo
 	bool		just_took_a_fork;
 	int			fork_n;
 	sem_t		*last_meal_access;
+	sem_t		*state_access;
 	pthread_t	monitor_id;
 }				t_philo;
 

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:56:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 23:27:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/15 00:17:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 void	close_philo_sem(t_philo *philo)
 {
 	sem_close(philo->last_meal_access);
+	sem_close(philo->state_access);
 	sem_close(philo->data->forks);
 	sem_close(philo->data->write_access);
 	sem_close(philo->data->eat_enough);
@@ -22,6 +23,8 @@ void	close_philo_sem(t_philo *philo)
 		sem_close(philo->data->end);
 	if (philo->data->print_end)
 		sem_close(philo->data->print_end);
+	sem_unlink("last_meal_access");
+	sem_unlink("state_access");
 }
 
 void	philo_wait_death(t_philo *philo)
