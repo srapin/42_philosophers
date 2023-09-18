@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:53:12 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:48:13 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/18 19:29:52 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	take_fork(t_philo *philo)
 {
 	sem_wait(philo->data->forks);
 	philo->fork_n++;
-	if (check_end(philo->data))
+	if (check_end(philo->data, philo->id))
 		return ;
 	philo->just_took_a_fork = true;
 	print_state(philo);

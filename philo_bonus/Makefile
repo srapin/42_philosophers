@@ -10,6 +10,7 @@ FILES = \
 		error \
 		exit\
 		forks\
+		ft_itoa\
 		id_getter \
 		init \
 		launcher\

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:39:45 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/18 21:26:19 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,12 +25,16 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
+#include <stdint.h>
 
-// typedef enum e_error
-// {
-// 	none,
-// 	parse_error
-// }					t_error;
+typedef enum e_error
+{
+	none,
+	parse_error,
+	alloc_error,
+	sem_error,
+	fork_error
+}					t_error;
 
 typedef enum e_state
 {
@@ -57,12 +61,11 @@ typedef struct s_data
 	long long	time_to_sleep;
 	long long	start;
 	sem_t		*forks;
-	sem_t		*write_access;
-	sem_t		*end_access;
-	sem_t		*print_end_access;
 	sem_t		*eat_enough;
-	sem_t		*end;
-	sem_t		*print_end;
+	sem_t		**end_access;
+	sem_t		**end;
+	sem_t		*write_access;
+	t_error		error;
 }				t_data;
 
 typedef struct s_philo
@@ -93,6 +96,7 @@ void			philo_exit(t_philo *philo);
 
 //error
 int				parse_error(void);
+int				alloc_error(void);
 
 // exit
 void			monitor_exit(t_data *data, pid_t *pids);
@@ -101,13 +105,19 @@ void			monitor_exit(t_data *data, pid_t *pids);
 void			drop_fork(t_philo *philo);
 void			take_fork(t_philo *philo);
 
+//ft_itoa
+char	*ft_itoa(int n);
+void	*ft_calloc(size_t nmemb, size_t size);
+char	*ft_strjoin(const char *s1, const char *s2);
+
 //id_getter
 int				get_philo_id(t_philo *philo);
 
 //init
 void			init(int ac, char **av, t_data *data);
 void			init_philo(t_philo *philo, t_data *data, int i);
-
+char *get_sem_end_name(int i);
+char *get_sem_end_access_name(int i);
 //launcher
 pid_t			*lets_gow(t_data *data);
 
@@ -135,8 +145,8 @@ long long		get_ms_time(void);
 int				time_for_task(t_philo *p);
 
 //utlis_end
-void			set_end(t_data *data);
-bool			check_end(t_data *data);
+void			set_end(t_data *data, int i);
+bool			check_end(t_data *data, int i);
 bool			check_print_end(t_data *data);
 void			set_print_end(t_data *data);
 
@@ -152,3 +162,25 @@ void			set_state(t_philo *philo, t_state s);
 bool			max_meals_specified(t_data *data);
 void			unlink_sem(void);
 #endif
+
+/*
+recuperer itoa
+
+initaliser une semaphore par philo? ->pas d init car check avec open
+creer un tableau dans data (enfait 2, celle d acces au check et celle pour pourvoir essayer d ouvrir)
+check end devient ->
+wait (data->sem_end[i])
+sem_open (name + itoa)
+post (data->sem_end[i])
+
+set end devient ->
+while (i)
+	wait (data->sem_end[i])  //esperer que c est assez rapide
+	
+while (i)
+	sem_open (name + itoa)
+while (i)
+	post (data->sem_end[i])
+
+idem print end ->relou ->essayer sans print end
+*/

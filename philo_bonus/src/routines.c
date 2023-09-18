@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:35:54 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/18 20:24:36 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	philosophe_routine(t_data *data, int i)
 	t_philo	philo;
 
 	init_philo(&philo, data, i);
-	while (!check_end(data))
+	while (!check_end(data, i))
 	{
 		act(&philo);
 		change_state(&philo);
@@ -31,6 +31,7 @@ void	eat_enough_checker_routine(t_data *data)
 	int	i;
 
 	i = 0;
+	usleep(1000);
 	if (max_meals_specified(data))
 	{
 		while (i < data->number_of_philosophers)
@@ -38,7 +39,7 @@ void	eat_enough_checker_routine(t_data *data)
 			sem_wait(data->eat_enough);
 			i++;
 		}
-		set_end(data);
+		set_end(data, data->number_of_philosophers);
 	}
 	exit(0);
 }
@@ -59,7 +60,7 @@ void	*death_checker_routine(void *args)
 	t_philo	*philo;
 
 	philo = args;
-	while (!check_end(philo->data))
+	while (!check_end(philo->data, philo->id))
 	{
 		still_alive(philo);
 		usleep(500);
