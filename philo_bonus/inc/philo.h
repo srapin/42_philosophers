@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/18 21:26:19 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/19 17:42:33 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@
 # include <unistd.h>
 #include <stdint.h>
 
-typedef enum e_error
-{
-	none,
-	parse_error,
-	alloc_error,
-	sem_error,
-	fork_error
-}					t_error;
+// typedef enum e_error
+// {
+// 	none,
+// 	parse_error,
+// 	alloc_error,
+// 	sem_error,
+// 	fork_error
+// }					t_error;
 
 typedef enum e_state
 {
@@ -65,7 +65,7 @@ typedef struct s_data
 	sem_t		**end_access;
 	sem_t		**end;
 	sem_t		*write_access;
-	t_error		error;
+	// t_error		error;
 }				t_data;
 
 typedef struct s_philo
@@ -95,8 +95,8 @@ void			philo_died(t_philo *philo);
 void			philo_exit(t_philo *philo);
 
 //error
-int				parse_error(void);
-int				alloc_error(void);
+// int				parse_error(void);
+// int				alloc_error(void);
 
 // exit
 void			monitor_exit(t_data *data, pid_t *pids);

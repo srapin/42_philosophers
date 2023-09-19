@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:15:23 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/18 21:05:12 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/19 18:38:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,8 @@ bool	check_end(t_data *data, int i)
 	
 	end_name = get_sem_end_name(i);
 	if (!end_name)
-		return parse_error();
+		return 1;
+		// return parse_error();
 	sem_wait(data->end_access[i]);
 	data->end[i] = sem_open(end_name, 0);
 	flag = data->end[i];
@@ -62,7 +63,9 @@ void	set_end(t_data *data, int id)
 	act_on_end_sem(data, &sem_wait);
 	if (id < data->number_of_philosophers && !check_end_whitout_waiting(data, id))
 	{
+	sem_wait(data->write_access);
 		printf("%lld %d died\n", get_relativ_ms_time(data), id + 1);
+	sem_post(data->write_access);
 	}
 	i = 0;
 	while(i < data->number_of_philosophers + 1)
