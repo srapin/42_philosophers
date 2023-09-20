@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/19 17:42:33 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/20 14:49:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ void			philo_exit(t_philo *philo);
 
 // exit
 void			monitor_exit(t_data *data, pid_t *pids);
-
+void			close_data_sem(t_data *data);
 //forks
 void			drop_fork(t_philo *philo);
 void			take_fork(t_philo *philo);
@@ -157,7 +157,7 @@ t_state			get_state(t_philo *philo);
 
 //utils
 void			update_last_meal(t_philo *philo, long long rel_time);
-void			update_has_already_eaten(t_philo *philo);
+bool			update_has_already_eaten(t_philo *philo);
 void			set_state(t_philo *philo, t_state s);
 bool			max_meals_specified(t_data *data);
 void			unlink_sem(void);

@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 22:10:21 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:39:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/20 14:46:05 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,19 @@ void	set_state(t_philo *philo, t_state s)
 	sem_post(philo->state_access);
 }
 
-void	update_has_already_eaten(t_philo *philo)
+bool	update_has_already_eaten(t_philo *philo)
 {
+	static bool flag;
+	
 	philo->has_already_eaten++;
 	if (philo->has_already_eaten
 		== philo->data->number_of_times_each_philosopher_must_eat
 		&& max_meals_specified(philo->data))
 	{
 		sem_post(philo->data->eat_enough);
+		flag = true;
 	}
+	return flag;
 }
 
 void	update_last_meal(t_philo *philo, long long rel_time)

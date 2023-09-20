@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/19 19:41:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/20 14:52:09 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,17 +15,24 @@
 void	philosophe_routine(t_data *data, int i)
 {
 	t_philo	philo;
+	bool flag;
 
 	init_philo(&philo, data, i);
 	while (get_ms_time() < data->start)
 		usleep(100);
-	// printf("after waot from philo %d\n", philo.id + 1);
 	while (!check_end(data, i))
 	{
 		act(&philo);
 		change_state(&philo);
 	}
+	while (philo.fork_n)
+		drop_fork(&philo);
+	flag = false;
+	while(!flag)
+		flag = update_has_already_eaten(&philo);
 	philo_exit(&philo);
+	// update_has_already_eaten
+	// printf("philo %d exit\n", philo.id);
 	exit(0);
 }
 
@@ -45,6 +52,11 @@ void	eat_enough_checker_routine(t_data *data)
 		}
 		set_end(data, data->number_of_philosophers);
 	}
+	close_data_sem(data);
+	free(data->end);
+	free(data->end_access);
+	// free()
+	// printf("meal exit\n");
 	exit(0);
 }
 
@@ -71,5 +83,7 @@ void	*death_checker_routine(void *args)
 		still_alive(philo);
 		usleep(500);
 	}
+	// printf("philo checker %d exit\n", philo->id);
+	// philo_exit(philo);
 	return (NULL);
 }

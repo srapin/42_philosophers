@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:25:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/19 18:36:15 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/20 14:28:00 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	init_philo(t_philo *philo, t_data *data, int i)
 	philo->has_already_eaten = 0;
 	philo->last_meal_access = sem_open("last_meal_access", O_CREAT, 0644, 1);
 	philo->state_access = sem_open("state_access", O_CREAT, 0644, 1);
+	philo->monitor_id = 0;
 	if (max_meals_specified(philo->data))
 		sem_wait(data->eat_enough);
 	pthread_create(&(philo->monitor_id), NULL, death_checker_routine, philo);
