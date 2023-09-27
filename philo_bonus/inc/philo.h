@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/20 14:49:48 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:28:30 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@
 # include <semaphore.h>
 # include <signal.h>
 # include <stdbool.h>
+# include <stdint.h>
 # include <stdio.h>
 # include <stdlib.h>
 # include <sys/stat.h> /* For mode constants */
@@ -25,16 +26,6 @@
 # include <sys/types.h>
 # include <sys/wait.h>
 # include <unistd.h>
-#include <stdint.h>
-
-// typedef enum e_error
-// {
-// 	none,
-// 	parse_error,
-// 	alloc_error,
-// 	sem_error,
-// 	fork_error
-// }					t_error;
 
 typedef enum e_state
 {
@@ -65,7 +56,6 @@ typedef struct s_data
 	sem_t		**end_access;
 	sem_t		**end;
 	sem_t		*write_access;
-	// t_error		error;
 }				t_data;
 
 typedef struct s_philo
@@ -94,10 +84,6 @@ void			philo_wait_death(t_philo *philo);
 void			philo_died(t_philo *philo);
 void			philo_exit(t_philo *philo);
 
-//error
-// int				parse_error(void);
-// int				alloc_error(void);
-
 // exit
 void			monitor_exit(t_data *data, pid_t *pids);
 void			close_data_sem(t_data *data);
@@ -106,9 +92,14 @@ void			drop_fork(t_philo *philo);
 void			take_fork(t_philo *philo);
 
 //ft_itoa
-char	*ft_itoa(int n);
-void	*ft_calloc(size_t nmemb, size_t size);
-char	*ft_strjoin(const char *s1, const char *s2);
+char			*ft_itoa(int n);
+void			*ft_calloc(size_t nmemb, size_t size);
+char			*ft_strjoin(const char *s1, const char *s2);
+void			*ft_memcpy(void *dest, const void *src, size_t n);
+
+//get_name
+char			*get_sem_end_name(int i);
+char			*get_sem_end_access_name(int i);
 
 //id_getter
 int				get_philo_id(t_philo *philo);
@@ -116,8 +107,7 @@ int				get_philo_id(t_philo *philo);
 //init
 void			init(int ac, char **av, t_data *data);
 void			init_philo(t_philo *philo, t_data *data, int i);
-char *get_sem_end_name(int i);
-char *get_sem_end_access_name(int i);
+
 //launcher
 pid_t			*lets_gow(t_data *data);
 
@@ -155,6 +145,10 @@ long long		get_last_meal(t_philo *philo);
 int				get_has_already_eaten(t_philo *philo);
 t_state			get_state(t_philo *philo);
 
+//utils_libft
+char			*ft_strjoin(const char *s1, const char *s2);
+char			*ft_strdup(const char *src);
+
 //utils
 void			update_last_meal(t_philo *philo, long long rel_time);
 bool			update_has_already_eaten(t_philo *philo);
@@ -162,25 +156,3 @@ void			set_state(t_philo *philo, t_state s);
 bool			max_meals_specified(t_data *data);
 void			unlink_sem(void);
 #endif
-
-/*
-recuperer itoa
-
-initaliser une semaphore par philo? ->pas d init car check avec open
-creer un tableau dans data (enfait 2, celle d acces au check et celle pour pourvoir essayer d ouvrir)
-check end devient ->
-wait (data->sem_end[i])
-sem_open (name + itoa)
-post (data->sem_end[i])
-
-set end devient ->
-while (i)
-	wait (data->sem_end[i])  //esperer que c est assez rapide
-	
-while (i)
-	sem_open (name + itoa)
-while (i)
-	post (data->sem_end[i])
-
-idem print end ->relou ->essayer sans print end
-*/

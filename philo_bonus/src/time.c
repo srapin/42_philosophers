@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:55:49 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/18 20:27:18 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:14 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	time_for_task(t_philo *philo)
 		if (last_meal >= 0)
 			return ((philo->data->time_to_die - philo->data->time_to_eat
 					- philo->data->time_to_sleep) * 0.5);
-		else if (philo->id < philo->data->number_of_philosophers/2)
+		else if (philo->id < philo->data->number_of_philosophers / 2)
 			return ((philo->data->time_to_eat) / 2);
 	}
 	return (0);

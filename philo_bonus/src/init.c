@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:25:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/20 14:28:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:19:45 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,80 +41,27 @@ void	set_param(int ac, char **av, t_data *data)
 		data->number_of_times_each_philosopher_must_eat = -1;
 }
 
-
-char *get_sem_end_access_name(int i)
+void	init_sem_end_access(t_data *data)
 {
-	static char *base = "end_access_";
-	char *number;
-	char *name;
-	number = ft_itoa(i);
-	if (!number)
-		return (NULL);
-	name = ft_strjoin(base, number);
-	free(number);
-	return name;
-}
+	int		i;
+	char	*name;
 
-char *get_sem_end_name(int i)
-{
-	static char *base = "end_";
-	char *number;
-	char *name;
-	number = ft_itoa(i);
-	if (!number)
-		return (NULL);
-	name = ft_strjoin(base, number);
-	free(number);
-	return name;
-}
-
-void init_sem_end_access(t_data *data)
-{
-	
-	int i = 0;
-	char *name;
-	data->end_access = ft_calloc((data->number_of_philosophers + 1), sizeof(sem_t*));
-	// if (!data->end_access)
-	// 	data->error = alloc_error;
-	data->end = ft_calloc((data->number_of_philosophers + 1), sizeof(sem_t*));
-	// if (!data->end)
-	// {
-	// 	free(data->end_access);
-	// 	data->error = alloc_error;
-	// }
-	// while (i < data->number_of_philosophers + 1 && !data->error)
+	i = 0;
+	data->end_access = ft_calloc((data->number_of_philosophers + 1),
+			sizeof(sem_t *));
+	data->end = ft_calloc((data->number_of_philosophers + 1), sizeof(sem_t *));
 	while (i < data->number_of_philosophers + 1)
 	{
 		name = get_sem_end_access_name(i);
-		// if (!name)
-		// {
-		// 	data->error = alloc_error;
-		// 	break;
-		// }
 		sem_unlink(name);
 		data->end_access[i] = sem_open(name, O_CREAT, 0644, 1);
-		// if (data->end_access[i] == SEM_FAILED)
-		// 	data->error = sem_error;
 		free(name);
 		name = get_sem_end_name(i);
-		// if (!name)
-		// {
-		// 	data->error = alloc_error;
-		// 	break;
-		// }
 		sem_unlink(name);
 		free(name);
 		i++;
 	}
 }
-
-// void	check_sem(t_data *data)
-// {
-	// if (data->error)
-	// 	return;
-	// if (data->end == SEM_FAILED || data->forks == SEM_FAILED || (max_meals_specified(data) && data->eat_enough == SEM_FAILED))
-		// data->error = sem_error;
-// }
 
 void	init_sem(t_data *data)
 {
@@ -126,14 +73,10 @@ void	init_sem(t_data *data)
 	if (max_meals_specified(data))
 		data->eat_enough = sem_open("eat_enough", O_CREAT, 0644,
 				data->number_of_philosophers);
-	// check_sem(data);
-	
 }
 
 void	init(int ac, char **av, t_data *data)
 {
-	// data->error = none;
 	set_param(ac, av, data);
 	init_sem(data);
-		
 }

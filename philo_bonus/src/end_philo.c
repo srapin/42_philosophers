@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:56:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/20 15:04:51 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:12:46 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	close_philo_sem(t_philo *philo)
 {
-	int i;
+	int	i;
 
 	if (max_meals_specified(philo->data))
 		sem_close(philo->data->eat_enough);
@@ -30,7 +30,7 @@ void	close_philo_sem(t_philo *philo)
 		if (philo->data->end[i] != SEM_FAILED)
 			sem_close(philo->data->end[i]);
 		i++;
-	};
+	}
 	sem_unlink("last_meal_access");
 	sem_unlink("state_access");
 }
@@ -38,7 +38,7 @@ void	close_philo_sem(t_philo *philo)
 void	philo_wait_death(t_philo *philo)
 {
 	usleep((philo->data->time_to_die + philo->last_meal
-				- get_relativ_ms_time(philo->data) + 1) * 1000);
+			- get_relativ_ms_time(philo->data) + 1) * 1000);
 }
 
 void	philo_died(t_philo *philo)
@@ -49,13 +49,11 @@ void	philo_died(t_philo *philo)
 
 void	philo_exit(t_philo *philo)
 {
-	// usleep(500);
 	sem_post(philo->data->eat_enough);
 	pthread_join(philo->monitor_id, NULL);
 	usleep(500);
 	close_philo_sem(philo);
 	free(philo->data->end);
 	free(philo->data->end_access);
-	// printf("philo %d, end of exit\n", philo->id);
 	exit(0);
 }

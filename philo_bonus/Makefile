@@ -7,10 +7,10 @@ FILES = \
 		act\
 		change_state \
 		end_philo \
-		error \
 		exit\
 		forks\
 		ft_itoa\
+		get_name\
 		id_getter \
 		init \
 		launcher\
@@ -22,6 +22,7 @@ FILES = \
 		time\
 		utils_end \
 		utils_getter \
+		utils_libft \
 		utils\
 
 

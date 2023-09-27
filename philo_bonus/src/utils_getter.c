@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 23:17:54 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:03:52 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:50 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,8 @@
 
 t_state	get_state(t_philo *philo)
 {
-	t_state s;
+	t_state	s;
+
 	sem_wait(philo->state_access);
 	s = philo->state;
 	sem_post(philo->state_access);

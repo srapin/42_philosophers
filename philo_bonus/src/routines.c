@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/20 14:52:09 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:17:00 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	philosophe_routine(t_data *data, int i)
 {
 	t_philo	philo;
-	bool flag;
+	bool	flag;
 
 	init_philo(&philo, data, i);
 	while (get_ms_time() < data->start)
@@ -28,11 +28,9 @@ void	philosophe_routine(t_data *data, int i)
 	while (philo.fork_n)
 		drop_fork(&philo);
 	flag = false;
-	while(!flag)
+	while (!flag)
 		flag = update_has_already_eaten(&philo);
 	philo_exit(&philo);
-	// update_has_already_eaten
-	// printf("philo %d exit\n", philo.id);
 	exit(0);
 }
 
@@ -55,8 +53,6 @@ void	eat_enough_checker_routine(t_data *data)
 	close_data_sem(data);
 	free(data->end);
 	free(data->end_access);
-	// free()
-	// printf("meal exit\n");
 	exit(0);
 }
 
@@ -74,7 +70,7 @@ bool	still_alive(t_philo *philo)
 void	*death_checker_routine(void *args)
 {
 	t_philo	*philo;
-	
+
 	philo = args;
 	while (get_ms_time() < philo->data->start + philo->data->time_to_die / 2)
 		usleep(100);
@@ -83,7 +79,5 @@ void	*death_checker_routine(void *args)
 		still_alive(philo);
 		usleep(500);
 	}
-	// printf("philo checker %d exit\n", philo->id);
-	// philo_exit(philo);
 	return (NULL);
 }

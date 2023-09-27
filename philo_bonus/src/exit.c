@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:23:25 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/20 15:03:22 by srapin           ###   ########.fr       */
+/*   Updated: 2023/09/27 19:13:14 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,9 +26,8 @@ void	wait_philos(t_data *data, pid_t *pids)
 
 void	close_data_sem(t_data *data)
 {
-	// (void) data;
-	int i;
-	
+	int	i;
+
 	i = 0;
 	sem_close(data->forks);
 	if (max_meals_specified(data))
@@ -45,7 +44,6 @@ void	close_data_sem(t_data *data)
 
 void	monitor_exit(t_data *data, pid_t *pids)
 {
-	// printf("end monitor exit\n");
 	wait_philos(data, pids);
 	free(pids);
 	close_data_sem(data);
