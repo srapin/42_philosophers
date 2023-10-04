@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/04/27 00:35:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/14 22:46:26 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/04 20:09:16 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ bool	philo_wait(t_philo *philo)
 	long long	target;
 
 	task_time = time_for_task(philo);
-	sleep_base = 10;
+	sleep_base = 500;
 	target = get_relativ_ms_time(philo->data) + task_time;
 	while (get_relativ_ms_time(philo->data) < target)
 	{
