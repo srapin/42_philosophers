@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/07 20:55:49 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/04 17:47:41 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/04 20:30:47 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	time_for_task(t_philo *philo)
 		return (philo->data->time_to_sleep);
 	if (state == thinking && get_has_already_eaten(philo))
 	{
-		if (get_has_already_eaten(philo) > 0 && !philo->id % 2)
+		if (get_has_already_eaten(philo) > 0)
 			return ((philo->data->time_to_die - philo->data->time_to_eat
 					- philo->data->time_to_sleep) * 0.4);
 	}
