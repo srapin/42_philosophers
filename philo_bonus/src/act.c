@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:21:34 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/18 19:29:27 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/10 21:59:32 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	philo_wait(t_philo *philo)
 
 void	philo_eat(t_philo *philo)
 {
-	while (philo->fork_n < 2)
+	if (philo->fork_n < 2)
 		philo_wait_death(philo);
 	philo_wait(philo);
 	if (philo->fork_n == 2)

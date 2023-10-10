@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/27 19:17:00 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 00:36:29 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,18 @@ void	eat_enough_checker_routine(t_data *data)
 		usleep(100);
 	if (max_meals_specified(data))
 	{
-		while (i < data->number_of_philosophers)
+		while (i < data->number_of_philosophers) //&& !check_end(data, data->number_of_philosophers))
 		{
 			sem_wait(data->eat_enough);
 			i++;
 		}
-		set_end(data, data->number_of_philosophers);
+		set_local_end(data, data->number_of_philosophers);
+		sem_close(data->end[data->number_of_philosophers]);
+	}
+	else
+	{
+		while (!check_end(data, data->number_of_philosophers))
+			usleep(500);
 	}
 	close_data_sem(data);
 	free(data->end);
@@ -63,7 +69,16 @@ bool	still_alive(t_philo *philo)
 	is_alive = (get_relativ_ms_time(philo->data)
 			- get_last_meal(philo) <= philo->data->time_to_die);
 	if (!is_alive)
+	{
 		philo_died(philo);
+		sem_wait(philo->data->end_access[philo->id]);
+		if (philo->data->end[philo->id])
+		{
+			sem_close(philo->data->end[philo->id]);
+			philo->data->end[philo->id] = NULL;
+		}
+		sem_post(philo->data->end_access[philo->id]);
+	}
 	return (is_alive && get_state(philo) != died);
 }
 
@@ -74,9 +89,8 @@ void	*death_checker_routine(void *args)
 	philo = args;
 	while (get_ms_time() < philo->data->start + philo->data->time_to_die / 2)
 		usleep(100);
-	while (!check_end(philo->data, philo->id))
+	while (!check_end(philo->data, philo->id) && still_alive(philo))
 	{
-		still_alive(philo);
 		usleep(500);
 	}
 	return (NULL);

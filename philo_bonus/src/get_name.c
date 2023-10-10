@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/27 19:19:35 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/27 19:22:54 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 00:53:55 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 char	*get_sem_end_access_name(int i)
 {
-	static char	*base;
+	char		*base;
 	char		*number;
 	char		*name;
 
@@ -29,7 +29,7 @@ char	*get_sem_end_access_name(int i)
 
 char	*get_sem_end_name(int i)
 {
-	static char	*base;
+	char		*base;
 	char		*number;
 	char		*name;
 

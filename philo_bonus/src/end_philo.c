@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:56:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/27 19:12:46 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 00:39:03 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,15 +22,19 @@ void	close_philo_sem(t_philo *philo)
 	sem_close(philo->state_access);
 	sem_close(philo->data->write_access);
 	sem_close(philo->data->forks);
-	sem_close(philo->data->end[philo->id]);
 	i = 0;
 	while (i <= philo->data->number_of_philosophers)
 	{
 		sem_close(philo->data->end_access[i]);
-		if (philo->data->end[i] != SEM_FAILED)
-			sem_close(philo->data->end[i]);
+		// if (philo->data->end[i])
+		// {
+		// 	sem_close(philo->data->end[i]);
+		// }
 		i++;
 	}
+	sem_close(philo->data->end[philo->id]);
+	if (philo->data->end[philo->data->number_of_philosophers])
+		sem_close(philo->data->end[philo->data->number_of_philosophers]);
 	sem_unlink("last_meal_access");
 	sem_unlink("state_access");
 }
@@ -43,7 +47,7 @@ void	philo_wait_death(t_philo *philo)
 
 void	philo_died(t_philo *philo)
 {
-	set_end(philo->data, philo->id);
+	set_local_end(philo->data, philo->id);
 	return ;
 }
 

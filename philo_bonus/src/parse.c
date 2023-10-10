@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:30:17 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/15 00:26:17 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/10 19:01:12 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ bool	check_args(int ac, char **av)
 	i = 1;
 	while (i < ac)
 	{
-		if (!ft_strisint(av[i]) || ft_atoi(av[i]) < 0)
+		if (!ft_strisint(av[i]) || ft_atoi(av[i]) <= 0)
 			return (false);
 		i++;
 	}

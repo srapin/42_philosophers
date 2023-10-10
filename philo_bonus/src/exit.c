@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:23:25 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/27 19:13:14 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 00:31:21 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,11 +35,10 @@ void	close_data_sem(t_data *data)
 	sem_close(data->write_access);
 	while (i <= data->number_of_philosophers)
 	{
-		if (data->end[i])
-			sem_close(data->end[i]);
 		sem_close(data->end_access[i]);
 		i++;
 	}
+	sem_close(data->end[data->number_of_philosophers]);
 }
 
 void	monitor_exit(t_data *data, pid_t *pids)
