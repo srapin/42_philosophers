@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:19:40 by srapin            #+#    #+#             */
-/*   Updated: 2023/09/27 19:28:30 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 00:56:10 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -135,7 +135,8 @@ long long		get_ms_time(void);
 int				time_for_task(t_philo *p);
 
 //utlis_end
-void			set_end(t_data *data, int i);
+void			set_end(t_data *data);
+void		set_local_end(t_data *data, int id);
 bool			check_end(t_data *data, int i);
 bool			check_print_end(t_data *data);
 void			set_print_end(t_data *data);
