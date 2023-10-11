@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:31:33 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/11 00:36:29 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 16:11:56 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,8 @@ void	eat_enough_checker_routine(t_data *data)
 			i++;
 		}
 		set_local_end(data, data->number_of_philosophers);
-		sem_close(data->end[data->number_of_philosophers]);
+		if (data->end[data->number_of_philosophers])
+			sem_close(data->end[data->number_of_philosophers]);
 	}
 	else
 	{

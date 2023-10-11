@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/14 22:56:58 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/11 00:39:03 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 16:25:48 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,18 +18,16 @@ void	close_philo_sem(t_philo *philo)
 
 	if (max_meals_specified(philo->data))
 		sem_close(philo->data->eat_enough);
-	sem_close(philo->last_meal_access);
-	sem_close(philo->state_access);
+	if (philo->last_meal_access)
+		sem_close(philo->last_meal_access);
+	if (philo->state_access)
+		sem_close(philo->state_access);
 	sem_close(philo->data->write_access);
 	sem_close(philo->data->forks);
 	i = 0;
 	while (i <= philo->data->number_of_philosophers)
 	{
 		sem_close(philo->data->end_access[i]);
-		// if (philo->data->end[i])
-		// {
-		// 	sem_close(philo->data->end[i]);
-		// }
 		i++;
 	}
 	sem_close(philo->data->end[philo->id]);

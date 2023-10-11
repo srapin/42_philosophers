@@ -6,7 +6,7 @@
 /*   By: srapin <srapin@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/09/11 21:23:25 by srapin            #+#    #+#             */
-/*   Updated: 2023/10/11 00:31:21 by srapin           ###   ########.fr       */
+/*   Updated: 2023/10/11 16:40:43 by srapin           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,20 @@ void	close_data_sem(t_data *data)
 	int	i;
 
 	i = 0;
-	sem_close(data->forks);
-	if (max_meals_specified(data))
+	if (data->forks)
+		sem_close(data->forks);
+	if (max_meals_specified(data) && data->eat_enough)
 		sem_close(data->eat_enough);
-	sem_close(data->write_access);
-	while (i <= data->number_of_philosophers)
+	if (data->write_access)
+		sem_close(data->write_access);
+	while (i <= data->number_of_philosophers && data->end_access)
 	{
-		sem_close(data->end_access[i]);
+		if (data->end_access[i])
+			sem_close(data->end_access[i]);
+		else
+			break;
 		i++;
 	}
-	sem_close(data->end[data->number_of_philosophers]);
 }
 
 void	monitor_exit(t_data *data, pid_t *pids)
